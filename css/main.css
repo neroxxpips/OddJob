@@ -530,7 +530,8 @@ input.input100 {
   }
 
   .login100-more {
-    display: none;
+    /* display: none; */
+    background-image: url('images/painting.jpeg');
   }
 }
 
