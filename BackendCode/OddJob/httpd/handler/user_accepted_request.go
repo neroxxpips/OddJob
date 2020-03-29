@@ -23,11 +23,11 @@ func UserAcceptedRequestGet(db *sql.DB) gin.HandlerFunc {
 		update.Close()
 
 		var request request.Request
-		query2 := "SELECT request_id,title,post,price,poster_id FROM requests WHERE request_id=?"
+		query2 := "SELECT * FROM requests WHERE request_id=?"
 
-		err := db.QueryRow(query2, requestID).Scan(&request.RequestID, &request.Title, &request.Post, &request.Price, &request.UserID)
-		if err != nil {
-			panic(err.Error()) // proper error handling instead of panic in your app
+		err2 := db.QueryRow(query2, requestID).Scan(&request.RequestID, &request.Title, &request.Post, &request.Price, &request.UserID, &request.AcceptorID)
+		if err2 != nil {
+			panic(err2.Error()) // proper error handling instead of panic in your app
 		}
 		c.JSON(http.StatusOK, request)
 
