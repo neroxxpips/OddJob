@@ -3,7 +3,8 @@ module OddJob
 go 1.13
 
 require (
-	firebase.google.com/go v3.12.0+incompatible
+	firebase.google.com/go v3.12.0+incompatible // indirect
+	github.com/gin-contrib/cors v1.3.1
 	github.com/gin-gonic/gin v1.5.0
 	github.com/go-playground/universal-translator v0.17.0 // indirect
 	github.com/go-sql-driver/mysql v1.5.0

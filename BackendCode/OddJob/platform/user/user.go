@@ -1,8 +1,7 @@
 package user
 
 type User struct {
-	ID              string  `json:"id"`
-	Password        string  `json:"password"`
+	Username        string  `json:"username"`
 	FirstName       string  `json:"fname"`
 	LastName        string  `json:"lname"`
 	Email           string  `json:"email"`
@@ -16,8 +15,7 @@ type User struct {
 
 func New(id string, password string, fname string, lname string, email string, state string, city string, zip int, phonenum string, rating float64, bg_check bool) *User {
 	return &User{
-		ID:              id,
-		Password:        password,
+		Username:        id,
 		FirstName:       fname,
 		LastName:        lname,
 		Email:           email,

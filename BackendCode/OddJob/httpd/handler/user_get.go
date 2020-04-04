@@ -14,7 +14,7 @@ func UserGet(db *sql.DB) gin.HandlerFunc {
 		username := c.DefaultQuery("username", "Guest")
 
 		var user userinfo.UserInfo
-		query := "SELECT user_id,firstname,lastname,email,state,city,zipcode,phonenumber,rating,backgroundcheck FROM users WHERE user_id=?"
+		query := "SELECT user_id,firstname,lastname,email,state,city,zipcode,phonenumber,rating,backgroundcheck FROM userprofiles WHERE user_id=?"
 
 		err := db.QueryRow(query, username).Scan(&user.ID, &user.FirstName, &user.LastName, &user.Email, &user.State, &user.City, &user.Zipcode, &user.PhoneNumber, &user.Rating, &user.BackgroundCheck)
 		if err != nil {

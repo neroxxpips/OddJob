@@ -1,12 +1,19 @@
 package handler
 
 import (
-	"OddJob/platform/request"
 	"database/sql"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
+
+type RequestNoAccepted struct {
+	RequestID int     `json:"rid"`
+	Title     string  `json:"title"`
+	Post      string  `json:"post"`
+	Price     float32 `json:"price"`
+	UserID    string  `json:"userid"`
+}
 
 func AllRequestGet(db *sql.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
@@ -17,7 +24,7 @@ func AllRequestGet(db *sql.DB) gin.HandlerFunc {
 		}
 
 		for results.Next() {
-			var request request.Request
+			var request RequestNoAccepted
 
 			err = results.Scan(&request.RequestID, &request.Title, &request.Post, &request.Price, &request.UserID)
 			if err != nil {

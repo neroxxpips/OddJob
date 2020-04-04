@@ -11,8 +11,7 @@ import (
 )
 
 type PostUser struct {
-	ID          string `json:"id"`
-	Password    string `json:"password"`
+	Username    string `json:"username"`
 	FirstName   string `json:"fname"`
 	LastName    string `json:"lname"`
 	Email       string `json:"email"`
@@ -28,8 +27,7 @@ func UserPost(db *sql.DB) gin.HandlerFunc {
 		c.Bind(&requestBody)
 
 		user := user.User{
-			ID:              requestBody.ID,
-			Password:        requestBody.Password,
+			Username:        requestBody.Username,
 			FirstName:       requestBody.FirstName,
 			LastName:        requestBody.LastName,
 			Email:           requestBody.Email,
@@ -40,7 +38,7 @@ func UserPost(db *sql.DB) gin.HandlerFunc {
 			Rating:          0.0,
 			BackgroundCheck: false,
 		}
-		insert, err := db.Query("INSERT INTO users VALUES ( '" + user.ID + "','" + user.Password + "','" + user.FirstName + "','" + user.LastName + "','" + user.Email + "','" + user.State + "','" + user.City + "'," + strconv.Itoa(user.Zipcode) + ",'" + user.PhoneNumber + "'," + fmt.Sprintf("%g", user.Rating) + ",False )")
+		insert, err := db.Query("INSERT INTO userprofiles VALUES ( '" + user.Username + "','" + user.FirstName + "','" + user.LastName + "','" + user.Email + "','" + user.State + "','" + user.City + "'," + strconv.Itoa(user.Zipcode) + ",'" + user.PhoneNumber + "'," + fmt.Sprintf("%g", user.Rating) + ",False )")
 		if err != nil {
 			panic(err.Error())
 		}
