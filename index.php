@@ -47,7 +47,7 @@
             <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
           </li>
           <li class="nav-item">
-            <a class="btn btn-primary btn-xl js-scroll-trigger" href="login.html">Login</a>
+            <a class="btn btn-primary btn-xl js-scroll-trigger" href="login.php">Login</a>
           </li>
         </ul>
       </div>
@@ -166,7 +166,7 @@
   <section class="page-section bg-dark text-white">
     <div class="container text-center">
       <h2 class="mb-4">Find Out The Kind of Help We Render!</h2>
-      <a class="btn btn-light btn-xl" href="">Register Here</a>
+      <a class="btn btn-light btn-xl" href="registration.php">Register Here</a>
     </div>
   </section>
 

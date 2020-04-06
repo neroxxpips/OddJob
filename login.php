@@ -1,3 +1,38 @@
+
+<?php 
+	session_start();
+	
+	
+	$db = new mysqli('localhost:8889','root','root','votersaccount');
+
+	// LOG USER IN
+	if (isset($_POST['login'])) {
+	  // Get username and password from login form
+	   $username = mysqli_real_escape_string($db, $_POST['username']);
+	   $password = mysqli_real_escape_string($db, $_POST['password']);
+
+	   $captcha = filter_input(INPUT_POST, 'g-recaptcha-response', FILTER_SANITIZE_STRING);
+
+	   if (!$captcha) {
+	   		echo "Please Complete Captcha!";
+	   } else{
+		
+	  
+	    $password = md5($password);
+	    $sql = "SELECT * FROM voters WHERE username='$username' AND password='$password'";
+	    $results = mysqli_query($db, $sql);
+	}
+	    if (mysqli_num_rows($results) == 1) {
+	      $_SESSION['username'] = $username;
+	      $_SESSION['success'] = "You are now logged in";
+
+	       header('location: homepage.php');
+	    }else {
+	      echo "Wrong credentials";
+	    }
+	  
+	}
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,14 +63,14 @@
 	<link href="https://fonts.googleapis.com/css?family=Luckiest+Guy&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 <!--===============================================================================================-->
-
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body style="background-color: #666666;">
 	
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<form class="login100-form validate-form">
+				<form class="login100-form validate-form" action="login.php" method="post">
 				<span class="odd-logo"><h1 style="font-size:80px;">OddJob</h1></span>
 					<span class="login100-form-title p-b-43">
 						Login to continue
@@ -43,14 +78,14 @@
 					
 					
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-						<input class="input100" type="text" name="email">
+						<input class="input100" type="text" name="username">
 						<span class="focus-input100"></span>
 						<span class="label-input100">Email</span>
 					</div>
 					
 					
 					<div class="wrap-input100 validate-input" data-validate="Password is required">
-						<input class="input100" type="password" name="pass">
+						<input class="input100" type="password" name="password">
 						<span class="focus-input100"></span>
 						<span class="label-input100">Password</span>
 					</div>
@@ -69,22 +104,24 @@
 							</a>
 						</div>
 					</div>
+					<div class="g-recaptcha form-group" data-sitekey="6Le_IMYUAAAAAKUCMMWJr-0UDuXBOfuYVWwaSssV"></div>
 			
 
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn">
+						<button class="login100-form-btn" type="submit" name="login">
 							Login
 						</button>
 					</div>
 					
 					<div class="text-center p-t-46 p-b-20">
 						<span class="txt2">
-							Not registered? <a href="">Click Here to Sign-up</a>
+							Not registered? <a href="registration.html">Click Here to Sign-up</a>
 						</span>
 					</div>
 
 					
 				</form>
+				<?php include('messages.php'); ?>
 
 				<div class="login100-more" style="background-image: url('images/painting.jpeg');">
 				</div>
