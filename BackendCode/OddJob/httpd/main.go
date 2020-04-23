@@ -29,7 +29,9 @@ func main() {
 	r.GET("/ping", handler.PingGet())
 
 	/*	Returns all available requests
-		EXAMPLE: http://localhost:8080/allavailablerequests */
+		EXAMPLE:
+		http://localhost:8080/allavailablerequests?street=%22Pryor%20St%20SW%22&number=30&city=%22Atlanta%22&state=%22Georgia%22
+		http://localhost:8080/allavailablerequests?street=%22S%20Broadway%22&number=304&city=%22Los%20Angeles%22&state=%22California%22 */
 	r.GET("/allavailablerequests", handler.AllRequestGet(db))
 
 	/*	Returns a specific available request (Need to provide the requestID in the query)
@@ -48,13 +50,16 @@ func main() {
 
 	//Adds a new request to the database. Username MUST first be in database
 	/*	Title  string  `json:"title"`
-		Post   string  `json:"post"`
-		Price  float32 `json:"price"`
-		UserID string  `json:"userid"` */
-	r.POST("/request", handler.RequestPost(db))
+			Post   string  `json:"post"`
+			Price  float32 `json:"price"`
+			UserID string  `json:"userid"` *
 
-	/*Returns a specific user profile from database (Need to provide userID in query)
-	  EXAMPLE: http://localhost:8080/userprofile?username=testuser123 */
+
+			/
+		r.POST("/request", handler.RequestPost(db))
+
+		/*Returns a specific user profile from database (Need to provide userID in query)
+		  EXAMPLE: http://localhost:8080/userprofile?username=testuser123 */
 	r.GET("/userprofile", handler.UserGet(db))
 
 	//Adds a new user profile to the database (The rating and backgroundcheck are set to 0 and false respectively)
