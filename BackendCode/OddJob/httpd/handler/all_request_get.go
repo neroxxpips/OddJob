@@ -43,7 +43,7 @@ func AllRequestGet(db *sql.DB) gin.HandlerFunc {
 			fmt.Println("Longitude: ", UserLocation.Longitude)
 		}
 
-		queryLoc := "SELECT request_id,number,street,state,city FROM requests WHERE accept_id IS NULL"
+		queryLoc := "SELECT request_id,latitude,longitude FROM requests WHERE accept_id IS NULL"
 		resultsLoc, err := db.Query(queryLoc)
 		if err != nil {
 			panic(err.Error()) // proper error handling instead of panic in your app
@@ -53,7 +53,7 @@ func AllRequestGet(db *sql.DB) gin.HandlerFunc {
 		for resultsLoc.Next() {
 			var requestLoc request.LocationRequest
 
-			err = resultsLoc.Scan(&requestLoc.RequestID, &requestLoc.Number, &requestLoc.Street, &requestLoc.State, &requestLoc.City)
+			err = resultsLoc.Scan(&requestLoc.RequestID, &requestLoc.Latitude, &requestLoc.Longitude)
 			if err != nil {
 				panic(err.Error()) // proper error handling instead of panic in your app
 			}
@@ -62,66 +62,67 @@ func AllRequestGet(db *sql.DB) gin.HandlerFunc {
 
 		var reqID []int
 		for _, requestLoc := range reqLocationArray {
-			reqAddress := geocoder.Address{
-				Street:  requestLoc.Street,
-				Number:  requestLoc.Number,
-				City:    requestLoc.City,
-				State:   requestLoc.State,
-				Country: "United States",
-			}
-			requestLocation, err := geocoder.Geocoding(reqAddress)
+
 			if err != nil {
 				panic(err.Error()) // proper error handling instead of panic in your app
 			}
-			if distance(requestLocation.Latitude, requestLocation.Longitude, UserLocation.Latitude, UserLocation.Longitude, "M") < 50 {
+			if distance(requestLoc.Latitude, requestLoc.Longitude, UserLocation.Latitude, UserLocation.Longitude, "M") < 50 {
 				reqID = append(reqID, requestLoc.RequestID)
 			}
 
 		}
 		queryPart2 := "AND request_id IN ("
 
-		for _, req := range reqID {
-			queryPart2 += strconv.Itoa(req) + ","
-		}
-		fmt.Printf(queryPart2)
-		queryPart2 = queryPart2[:len(queryPart2)-1]
-		queryPart2 += ")"
-		fmt.Printf(queryPart2)
-
-		query := ""
-		if price == "-1" {
-			if task == "-1" {
-				query = "SELECT request_id,title,price,state,city,task,poster_id FROM requests WHERE accept_id IS NULL "
-			} else {
-				query = "SELECT request_id,title,price,state,city,task,poster_id FROM requests WHERE accept_id IS NULL AND task = " + task + " "
+		if len(reqID) > 0 {
+			for _, req := range reqID {
+				queryPart2 += strconv.Itoa(req) + ","
 			}
-		} else {
-			if task == "-1" {
-				query = "SELECT request_id,title,price,state,city,task,poster_id FROM requests WHERE accept_id IS NULL AND price < " + price + " "
+			fmt.Printf(queryPart2)
+			queryPart2 = queryPart2[:len(queryPart2)-1]
+			queryPart2 += ")"
+			fmt.Printf(queryPart2)
+
+			query := ""
+			if price == "-1" {
+				if task == "-1" {
+					query = "SELECT request_id,title,price,state,city,task,reqimg,poster_id FROM requests WHERE accept_id IS NULL "
+				} else {
+					query = "SELECT request_id,title,price,state,city,task,reqimg,poster_id FROM requests WHERE accept_id IS NULL AND task = " + task + " "
+				}
 			} else {
-				query = "SELECT request_id,title,price,state,city,task,poster_id FROM requests WHERE accept_id IS NULL AND price < " + price + " AND task = " + task + " "
+				if task == "-1" {
+					query = "SELECT request_id,title,price,state,city,task,reqimg,poster_id FROM requests WHERE accept_id IS NULL AND price < " + price + " "
+				} else {
+					query = "SELECT request_id,title,price,state,city,task,reqimg,poster_id FROM requests WHERE accept_id IS NULL AND price < " + price + " AND task = " + task + " "
+				}
 			}
-		}
-		totalQuery := query + queryPart2
-		results, err := db.Query(totalQuery)
-		fmt.Printf(totalQuery)
-		if err != nil {
-			panic(err.Error()) // proper error handling instead of panic in your app
-		}
-
-		var requestArray []request.RequestNoAccepted
-		for results.Next() {
-			var request request.RequestNoAccepted
-
-			err = results.Scan(&request.RequestID, &request.Title, &request.Price, &request.State, &request.City, &request.Task, &request.UserID)
+			totalQuery := query + queryPart2
+			results, err := db.Query(totalQuery)
+			fmt.Printf(totalQuery)
 			if err != nil {
 				panic(err.Error()) // proper error handling instead of panic in your app
 			}
-			requestArray = append(requestArray, request)
+
+			var allReqs requestArr
+			for results.Next() {
+				var request request.SmallRequest
+
+				err = results.Scan(&request.RequestID, &request.Title, &request.Price, &request.State, &request.City, &request.Task, &request.Image, &request.UserID)
+				if err != nil {
+					panic(err.Error()) // proper error handling instead of panic in your app
+				}
+				allReqs.RequestArray = append(allReqs.RequestArray, request)
+			}
+			c.JSON(http.StatusOK, allReqs)
+		} else {
+			c.Status(http.StatusNoContent)
 		}
-		c.JSON(http.StatusOK, requestArray)
 	}
 
+}
+
+type requestArr struct {
+	RequestArray []request.SmallRequest `json:"requestArray"`
 }
 
 //Copied from https://www.geodatasource.com/developers/go

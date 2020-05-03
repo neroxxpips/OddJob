@@ -7,23 +7,8 @@ type User struct {
 	Email           string  `json:"email"`
 	State           string  `json:"state"`
 	City            string  `json:"city"`
-	Zipcode         int     `json:"zip"`
 	PhoneNumber     string  `json:"phonenum"`
+	Image           string  `json:"image"`
 	Rating          float64 `json:"rating"`
 	BackgroundCheck bool    `json:"backgroundcheck"`
-}
-
-func New(id string, password string, fname string, lname string, email string, state string, city string, zip int, phonenum string, rating float64, bg_check bool) *User {
-	return &User{
-		Username:        id,
-		FirstName:       fname,
-		LastName:        lname,
-		Email:           email,
-		State:           state,
-		City:            city,
-		Zipcode:         zip,
-		PhoneNumber:     phonenum,
-		Rating:          rating,
-		BackgroundCheck: bg_check,
-	}
 }

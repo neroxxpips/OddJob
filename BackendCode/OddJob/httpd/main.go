@@ -15,7 +15,7 @@ func main() {
 	r := gin.Default()
 	r.Use(cors.Default())
 
-	db, err := sql.Open("mysql", "root:Secret-12345@tcp(127.0.0.1:3306)/testStuff") //ENTER DATABASE INFO TO CONNECT
+	db, err := sql.Open("mysql", "b0fc7571f78ffb:b562c8a3@tcp(us-cdbr-iron-east-01.cleardb.net:3306)/heroku_cb680c63ed9989a") //ENTER DATABASE INFO TO CONNECT
 
 	if err != nil {
 		panic(err.Error())
@@ -34,6 +34,8 @@ func main() {
 		http://localhost:8080/allavailablerequests?street=%22S%20Broadway%22&number=304&city=%22Los%20Angeles%22&state=%22California%22 */
 	r.GET("/allavailablerequests", handler.AllRequestGet(db))
 
+	r.GET("/allacceptedrequests", handler.AllAcceptRequestGet(db))
+
 	/*	Returns a specific available request (Need to provide the requestID in the query)
 		EXAMPLE: http://localhost:8080/availablerequest?requestID=3 */
 	r.GET("/availablerequest", handler.AvailableRequestGet(db))
@@ -50,16 +52,16 @@ func main() {
 
 	//Adds a new request to the database. Username MUST first be in database
 	/*	Title  string  `json:"title"`
-			Post   string  `json:"post"`
-			Price  float32 `json:"price"`
-			UserID string  `json:"userid"` *
+		Post   string  `json:"post"`
+		Price  float32 `json:"price"`
+		UserID string  `json:"userid"` *
 
 
-			/
-		r.POST("/request", handler.RequestPost(db))
+	*/
+	r.POST("/request", handler.RequestPost(db))
 
-		/*Returns a specific user profile from database (Need to provide userID in query)
-		  EXAMPLE: http://localhost:8080/userprofile?username=testuser123 */
+	/*Returns a specific user profile from database (Need to provide userID in query)
+	  EXAMPLE: http://localhost:8080/userprofile?username=testuser123 */
 	r.GET("/userprofile", handler.UserGet(db))
 
 	//Adds a new user profile to the database (The rating and backgroundcheck are set to 0 and false respectively)
@@ -69,7 +71,6 @@ func main() {
 		Email       string `json:"email"`
 		State       string `json:"state"`
 		City        string `json:"city"`
-		Zipcode     int    `json:"zip"`
 		PhoneNumber string `json:"phonenum"` */
 	r.POST("/userprofile", handler.UserPost(db))
 

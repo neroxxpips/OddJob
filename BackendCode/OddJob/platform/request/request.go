@@ -11,8 +11,11 @@ type Request struct {
 	City       string  `json:"city"`
 	Zipcode    int     `json:"zip"`
 	Task       string  `json:"task"`
-	UserID     string  `json:"userid"`
-	AcceptorID string  `json:"acceptid"`
+	Latitude   float64
+	Longitude  float64
+	Image      string `json:"image"`
+	UserID     string `json:"userid"`
+	AcceptorID string `json:"acceptid"`
 }
 
 type RequestNoAccepted struct {
@@ -26,7 +29,10 @@ type RequestNoAccepted struct {
 	City      string  `json:"city"`
 	Zipcode   int     `json:"zip"`
 	Task      string  `json:"task"`
-	UserID    string  `json:"userid"`
+	Latitude  float64
+	Longitude float64
+	Image     string `json:"image"`
+	UserID    string `json:"userid"`
 }
 
 type SmallRequest struct {
@@ -37,46 +43,14 @@ type SmallRequest struct {
 	State     string  `json:"state"`
 	City      string  `json:"city"`
 	Task      string  `json:"task"`
-	UserID    string  `json:"userid"`
+	Latitude  float64
+	Longitude float64
+	Image     string `json:"image"`
+	UserID    string `json:"userid"`
 }
 
 type LocationRequest struct {
-	RequestID int    `json:"rid"`
-	Number    int    `json:"number"`
-	Street    string `json:"address"`
-	State     string `json:"state"`
-	City      string `json:"city"`
-}
-
-func New(rid int, title string, post string, price float32, number int, street string, state string, city string, zip int, task string, uid string, aid string) *Request {
-	return &Request{
-		RequestID:  rid,
-		Title:      title,
-		Post:       post,
-		Price:      price,
-		Number:     number,
-		Street:     street,
-		State:      state,
-		City:       city,
-		Zipcode:    zip,
-		Task:       task,
-		UserID:     uid,
-		AcceptorID: aid,
-	}
-}
-
-func NoAcceptedNew(rid int, title string, post string, price float32, number int, street string, state string, city string, zip int, task string, uid string) *RequestNoAccepted {
-	return &RequestNoAccepted{
-		RequestID: rid,
-		Title:     title,
-		Post:      post,
-		Price:     price,
-		Number:    number,
-		Street:    street,
-		State:     state,
-		City:      city,
-		Zipcode:   zip,
-		Task:      task,
-		UserID:    uid,
-	}
+	RequestID int `json:"rid"`
+	Latitude  float64
+	Longitude float64
 }

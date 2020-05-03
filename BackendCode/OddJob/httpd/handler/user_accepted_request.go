@@ -30,7 +30,7 @@ func UserAcceptedRequestGet(db *sql.DB) gin.HandlerFunc {
 		var request request.Request
 		query2 := "SELECT * FROM requests WHERE request_id=?"
 
-		err2 := db.QueryRow(query2, requestBody.RequestID).Scan(&request.RequestID, &request.Title, &request.Post, &request.Price, &request.Number, &request.Street, &request.State, &request.City, &request.Zipcode, &request.Task, &request.UserID, &request.AcceptorID)
+		err2 := db.QueryRow(query2, requestBody.RequestID).Scan(&request.RequestID, &request.Title, &request.Post, &request.Price, &request.Number, &request.Street, &request.State, &request.City, &request.Zipcode, &request.Task, &request.Latitude, &request.Longitude, &request.Image, &request.UserID, &request.AcceptorID)
 		if err2 != nil {
 			panic(err2.Error()) // proper error handling instead of panic in your app
 		}

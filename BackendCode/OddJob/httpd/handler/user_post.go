@@ -5,7 +5,6 @@ import (
 	"database/sql"
 	"fmt"
 	"net/http"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -17,8 +16,8 @@ type PostUser struct {
 	Email       string `json:"email"`
 	State       string `json:"state"`
 	City        string `json:"city"`
-	Zipcode     int    `json:"zip"`
 	PhoneNumber string `json:"phonenum"`
+	Image       string `json:"image"`
 }
 
 func UserPost(db *sql.DB) gin.HandlerFunc {
@@ -33,12 +32,12 @@ func UserPost(db *sql.DB) gin.HandlerFunc {
 			Email:           requestBody.Email,
 			State:           requestBody.State,
 			City:            requestBody.City,
-			Zipcode:         requestBody.Zipcode,
 			PhoneNumber:     requestBody.PhoneNumber,
+			Image:           requestBody.Image,
 			Rating:          0.0,
 			BackgroundCheck: false,
 		}
-		insert, err := db.Query("INSERT INTO userprofiles VALUES ( '" + user.Username + "','" + user.FirstName + "','" + user.LastName + "','" + user.Email + "','" + user.State + "','" + user.City + "'," + strconv.Itoa(user.Zipcode) + ",'" + user.PhoneNumber + "'," + fmt.Sprintf("%g", user.Rating) + ",False )")
+		insert, err := db.Query("INSERT INTO userprofiles VALUES ( '" + user.Username + "','" + user.FirstName + "','" + user.LastName + "','" + user.Email + "','" + user.State + "','" + user.City + "','" + user.PhoneNumber + "','" + user.Image + "'," + fmt.Sprintf("%g", user.Rating) + ",False )")
 		if err != nil {
 			panic(err.Error())
 		}

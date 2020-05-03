@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"OddJob/platform/userinfo"
+	"OddJob/platform/user"
 	"database/sql"
 	"net/http"
 
@@ -13,10 +13,10 @@ func UserGet(db *sql.DB) gin.HandlerFunc {
 
 		username := c.DefaultQuery("username", "")
 
-		var user userinfo.UserInfo
-		query := "SELECT user_id,firstname,lastname,email,state,city,zipcode,phonenumber,rating,backgroundcheck FROM userprofiles WHERE user_id=?"
+		var user user.User
+		query := "SELECT user_id,firstname,lastname,email,state,city,phonenumber,userimg,rating,backgroundcheck FROM userprofiles WHERE user_id=?"
 
-		err := db.QueryRow(query, username).Scan(&user.ID, &user.FirstName, &user.LastName, &user.Email, &user.State, &user.City, &user.Zipcode, &user.PhoneNumber, &user.Rating, &user.BackgroundCheck)
+		err := db.QueryRow(query, username).Scan(&user.Username, &user.FirstName, &user.LastName, &user.Email, &user.State, &user.City, &user.PhoneNumber, &user.Image, &user.Rating, &user.BackgroundCheck)
 		if err != nil {
 			panic(err.Error()) // proper error handling instead of panic in your app
 		}
