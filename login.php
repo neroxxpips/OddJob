@@ -3,7 +3,7 @@
 	session_start();
 	
 	
-	$db = new mysqli('localhost:8889','root','root','votersaccount');
+	$db = new mysqli('us-cdbr-iron-east-01.cleardb.net:3306','b0fc7571f78ffb','b562c8a3','heroku_cb680c63ed9989a');
 
 	// LOG USER IN
 	if (isset($_POST['login'])) {
@@ -18,8 +18,8 @@
 	   } else{
 		
 	  
-	    $password = md5($password);
-	    $sql = "SELECT * FROM voters WHERE username='$username' AND password='$password'";
+	    // $password = md5($password);
+	    $sql = "SELECT * FROM users WHERE username='$username' AND password='$password'";
 	    $results = mysqli_query($db, $sql);
 	}
 	    if (mysqli_num_rows($results) == 1) {
