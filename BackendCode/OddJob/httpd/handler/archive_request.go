@@ -37,6 +37,6 @@ func ArchiveReq(db *sql.DB) gin.HandlerFunc {
 			panic(err.Error()) // proper error handling instead of panic in your app
 		}
 		ins.Close()
-		c.JSON(http.StatusOK, request)
+		c.Status(http.StatusNoContent)
 	}
 }

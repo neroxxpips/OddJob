@@ -98,6 +98,33 @@ func main() {
 	Returns a 204 status if successful (no json returned)*/
 	r.GET("/deleterequest", handler.DeleteReq(db))
 
+	/* Performs payment
+	POST request needs these json fields
+	RequestID int    `json:"requestid"`
+	CCNum     string `json:"card_num"`
+	CCType    string `json:"card_type"`
+	CCExpMon  string `json:"card_month"`
+	CCExpYear string `json:"card_year"`
+	CVV       string `json:"card_cvv"`
+	*/
+	r.POST("/paypalPayment", handler.PayPalPayment(db))
+
+	/*Shows all archived requests which were received(requested)
+	http://localhost:8080/allarchivedreceived?user=test5*/
+	r.GET("/allarchivedreceived", handler.AllArchivedReceived(db))
+
+	/*Shows all archived requests performed
+	http://localhost:8080/allarchiveddone?user=jdoe*/
+	r.GET("/allarchiveddone", handler.AllArchivedDone(db))
+
+	/*Shows all current requests which the user requested and were accepted
+	http://localhost:8080/allrequestsrequestedaccepted?user=test5 */
+	r.GET("allrequestsrequestedaccepted", handler.AllRequestsRequestedAccepted(db))
+
+	/*Shows all current requests which the user requested and were accepted
+	http://localhost:8080/allrequestsrequestednoaccepted?user=test5*/
+	r.GET("allrequestsrequestednoaccepted", handler.AllRequestsRequestedNotAccepted(db))
+
 	r.Run()
 
 }
