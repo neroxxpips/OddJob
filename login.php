@@ -115,7 +115,7 @@
 					
 					<div class="text-center p-t-46 p-b-20">
 						<span class="txt2">
-							Not registered? <a href="registration.html">Click Here to Sign-up</a>
+							Not registered? <a href="registration.php">Click Here to Sign-up</a>
 						</span>
 					</div>
 
