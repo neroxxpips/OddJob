@@ -26,7 +26,7 @@
 	      $_SESSION['username'] = $username;
 	      $_SESSION['success'] = "You are now logged in";
 
-	       header('location: homepage.php');
+	       header('location: userdata.php');
 	    }else {
 	      echo "Wrong credentials";
 	    }
@@ -65,7 +65,7 @@
 <!--===============================================================================================-->
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
-<body style="background-color: #666666;">
+<body style="background-color:grey;">
 	
 	<div class="limiter">
 		<div class="container-login100">
@@ -116,7 +116,7 @@
 					<div class="text-center p-t-46 p-b-20">
 						<span class="txt2">
 							Not registered? <a href="registration.php">Click Here to Sign-up</a>
-						</span>
+							
 					</div>
 
 					
