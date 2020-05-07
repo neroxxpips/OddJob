@@ -104,24 +104,24 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
 
       <div class="col-lg-9">
 	
-				<form class="login100-form validate-form" action="post.php" method="post">
+				<form class="login100-form validate-form" action="job-post.php" method="post">
 				
 					<span class="login100-form-title p-b-43">
 						Post New Task
 					</span>
 					<br>
 					
-					<div class="wrap-input100 validate-input" data-validate = "task is required">
-						<input class="input100" type="text" name="task">
+					<div class="wrap-input100 validate-input" data-validate = "title is required">
+						<input class="input100" type="text" name="title">
 						<span class="focus-input100"></span>
-						<span class="label-input100">Type of Task</span>
+						<span class="label-input100">Title</span>
 					</div>
 					
 					
-					<div class="wrap-input100 validate-input" data-validate="Password is required">
-						<input class="input100" type="text" name="descript">
+					<div class="wrap-input100 validate-input" data-validate="post is required">
+						<input class="input100" type="text" name="post">
 						<span class="focus-input100"></span>
-						<span class="label-input100">Description</span>
+						<span class="label-input100">Post</span>
 					</div>
 
                     <div class="wrap-input100 validate-input" data-validate="price is required">
@@ -130,12 +130,49 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
 						<span class="label-input100">Price</span>
 					</div>
 
+          <div class="wrap-input100 validate-input" data-validate="street number is required">
+						<input class="input100" type="text" name="number">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Street Number</span>
+					</div>
+
+          <div class="wrap-input100 validate-input" data-validate="street name is required">
+						<input class="input100" type="text" name="street">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Street Name</span>
+					</div>
+
+          <div class="wrap-input100 validate-input" data-validate="state is required">
+						<input class="input100" type="text" name="state">
+						<span class="focus-input100"></span>
+						<span class="label-input100">State</span>
+					</div>
+
+          <div class="wrap-input100 validate-input" data-validate="city is required">
+						<input class="input100" type="text" name="city">
+						<span class="focus-input100"></span>
+						<span class="label-input100">City</span>
+					</div>
+
+          <div class="wrap-input100 validate-input" data-validate="zipcode is required">
+						<input class="input100" type="number" name="zip">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Zipcode</span>
+					</div>
+
+          <div class="wrap-input100 validate-input" data-validate="taskis required">
+						<input class="input100" type="text" name="task">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Task</span>
+					</div>
+
 					<div class="wrap-input100 validate-input" data-validate="file is required">
 						<input class="input100" type="file" name="image">
 						<span class="focus-input100"></span>
 						<span class="label-input100">Image</span>
 					</div>
-						
+
+        
 
 						<div>
 							
