@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Mesibo Test Chat</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+    <script type="text/javascript" src="https://api.mesibo.com/mesibo.js"></script>
+    <!--SCRIPTINCLUDEEND-->
+
+    <script src="mesibo-demo2.js"></script>
+
+</head>
+
+<body>
+    <h1>Mesibo Test Chat</h1>
+    <h3>OddJob</h3>
+    <div class="container" style="padding: 10px;">
+        <div class="border-bottom my-3"></div>
+        <h2></h2>
+        <h3>Connection Status</h3>
+		<button type="button" class="btn btn-danger" id="cstatus">You are offline</button>
+		
+		<br/><br/>
+
+        <form action="#action">
+            <label for="userToken">Enter User Token:</label>
+            <input type="text" id="userToken" name="userToken">
+        </form>
+        <button type="button" id="btn4" class="btn btn-info" onclick="setUserToken()">Enter</button>
+
+        <br/><br/>
+
+        <h3 id="username">User: </h3>
+        <h3 id="recipient">Sending to: </h3>
+
+        <form action="#action">
+            <label for="messageHistory">Message History:</label>
+            <textarea id="messageHistory" name="messageHistory" disabled></textarea>
+            <label for="message">Message:</label>
+            <input type="text" id="message" name="message"><br><br>
+        </form>
+
+        <div style="marging-top: 20px;">
+			<button type="button" id="btn1" class="btn btn-primary" onclick="getInput()">Send a Message</button>
+			<button type="button" id="btn2" class="btn btn-success" onclick="sendFile()">Send a File</button>
+			<button type="button" id="btn3" class="btn btn-info" onclick="sendReadReceipt()">Send ReadReceipt</button>
+        </div>
+    </div>
+
+</body>
+
+</html>
