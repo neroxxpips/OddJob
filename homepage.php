@@ -128,7 +128,7 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
 ini_set("allow_url_fopen", 1);
 
 // Insert api call here
-$url = 'http://localhost:8080/allavailablerequests?street=%22Pryor%20St%20SW%22&number=30&city=%22Atlanta%22&state=%22Georgia%22';
+$url = 'http://localhost:8080/allavailablerequests?street=%2216th%20ST%22&number=3499&city=%22San%20Francisco%22&state=%22California%22';
 
 $obj = json_decode(file_get_contents($url), true);
 
@@ -138,13 +138,19 @@ for ($i = 0; $i < count($obj['requestArray']); $i++) {
 ?>  
 <div class="col-lg-4 col-md-6 mb-4">
    <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="images/entry.png" alt=""></a>
+              <a>
+              
+              <?php
+              $req_img = $obj['requestArray'][$i]['image'];
+              echo "<img class=\"card-img-top\" src=' ". $req_img . "' alt=\"\">";
+              ?>
+                </a>
               <div class="card-body">
                 <h4 class="card-title">
                   <a href="#"><?php echo $obj['requestArray'][$i]['title']; ?></a>
                 </h4>
                 <h5>$<?php echo $obj['requestArray'][$i]['price']; ?></h5>
-                <p stlye="color:green;" class="card-text" ><?php echo $obj['requestArray'][$i]['title']; ?></p>
+                <p style="color:green;" class="card-text" ><?php echo $obj['requestArray'][$i]['title']; ?></p>
               </div>
               <div class="card-footer">
                 <small class="text-muted"><a class="btn btn-primary btn-xl js-scroll-trigger" href="details.php">view</a>
