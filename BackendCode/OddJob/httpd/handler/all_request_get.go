@@ -24,6 +24,7 @@ func AllRequestGet(db *sql.DB) gin.HandlerFunc {
 		}
 		city := c.DefaultQuery("city", "-1")
 		state := c.DefaultQuery("state", "-1")
+		userView := c.DefaultQuery("userid", "-1")
 
 		geocoder.ApiKey = "AIzaSyADHmN2wuASiKZGgN7N-tst3bb2GWNKAUk"
 
@@ -77,25 +78,25 @@ func AllRequestGet(db *sql.DB) gin.HandlerFunc {
 			for _, req := range reqID {
 				queryPart2 += strconv.Itoa(req) + ","
 			}
-			fmt.Printf(queryPart2)
+
 			queryPart2 = queryPart2[:len(queryPart2)-1]
 			queryPart2 += ")"
-			fmt.Printf(queryPart2)
 
 			query := ""
 			if price == "-1" {
 				if task == "-1" {
-					query = "SELECT request_id,title,price,state,city,task,reqimg,poster_id FROM requests WHERE accept_id IS NULL "
+					query = "SELECT request_id,title,price,state,city,task,reqimg,poster_id FROM requests WHERE poster_id != '" + userView + "' AND accept_id IS NULL "
 				} else {
-					query = "SELECT request_id,title,price,state,city,task,reqimg,poster_id FROM requests WHERE accept_id IS NULL AND task = " + task + " "
+					query = "SELECT request_id,title,price,state,city,task,reqimg,poster_id FROM requests WHERE poster_id != '" + userView + "' AND accept_id IS NULL AND task = " + task + " "
 				}
 			} else {
 				if task == "-1" {
-					query = "SELECT request_id,title,price,state,city,task,reqimg,poster_id FROM requests WHERE accept_id IS NULL AND price < " + price + " "
+					query = "SELECT request_id,title,price,state,city,task,reqimg,poster_id FROM requests WHERE poster_id != '" + userView + "' AND accept_id IS NULL AND price < " + price + " "
 				} else {
-					query = "SELECT request_id,title,price,state,city,task,reqimg,poster_id FROM requests WHERE accept_id IS NULL AND price < " + price + " AND task = " + task + " "
+					query = "SELECT request_id,title,price,state,city,task,reqimg,poster_id FROM requests WHERE poster_id != '" + userView + "' AND accept_id IS NULL AND price < " + price + " AND task = " + task + " "
 				}
 			}
+			fmt.Println(query)
 			totalQuery := query + queryPart2
 			results, err := db.Query(totalQuery)
 			fmt.Printf(totalQuery)
