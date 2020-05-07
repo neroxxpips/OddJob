@@ -147,7 +147,8 @@ for ($i = 0; $i < count($obj['requestArray']); $i++) {
                 <p stlye="color:green;" class="card-text" ><?php echo $obj['requestArray'][$i]['title']; ?></p>
               </div>
               <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                <small class="text-muted"><a class="btn btn-primary btn-xl js-scroll-trigger" href="details.php">view</a>
+                </small>
               </div>
             </div>
             </div>
