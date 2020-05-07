@@ -128,12 +128,11 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
 ini_set("allow_url_fopen", 1);
 
 // Insert api call here
-$url = 'http://localhost:8080/allavailablerequests?street=%2216th%20ST%22&number=3499&city=%22San%20Francisco%22&state=%22California%22';
-
+$url = 'http://localhost:8080/allavailablerequests?street=16th%20St&number=3466&city=San%20Francisco&state=California&userid=' . $_SESSION["username"];
 $obj = json_decode(file_get_contents($url), true);
 
 ?>
-<?php  
+<?php
 for ($i = 0; $i < count($obj['requestArray']); $i++) {
 ?>  
 <div class="col-lg-4 col-md-6 mb-4">

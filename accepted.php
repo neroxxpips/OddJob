@@ -127,11 +127,11 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
               </b></h4>
               <br>
               <div>
-              <a class="btn btn-primary btn-xl js-scroll-trigger" href="accepted.php">Request Accepted</a>
+              <a class="btn btn-primary btn-xl js-scroll-trigger" href="accepted.php">Your Requests</a>
               </div>
               <br>
               <div>
-              <a class="btn btn-primary btn-xl js-scroll-trigger" href="rejected.php">Request Rejected</a>
+              <a class="btn btn-primary btn-xl js-scroll-trigger" href="rejected.php">Your Jobs</a>
               </div>
               
               
@@ -151,7 +151,9 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
                     <br>
                     
 					<div style="height:200px;width:200px;border:4px solid black;">
-              
+          
+          
+
                 <a class="btn btn-primary btn-xl js-scroll-trigger" href="payment.php">Make Payment</a>
              
           </div>

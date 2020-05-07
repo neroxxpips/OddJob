@@ -70,12 +70,6 @@
 						<span class="focus-input100"></span>
 						<span class="label-input100">Email</span>
 					</div>
-					
-					<div class="wrap-input100 validate-input" data-validate="file is required">
-						<input class="input100" onchange="encodeImageFileAsURL(this)" type="file" name="image">
-						<span class="focus-input100"></span>
-						<span class="label-input100">Image</span>
-					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="city is required">
 						<input class="input100" type="text" name="city">
@@ -96,9 +90,18 @@
 						<span class="label-input100">Phone Number</span>
 					</div>
 
+					<div class="wrap-input100 validate-input" data-validate="file is required">
+						<input class="input100" onchange="encodeImageFileAsURL(this)" type="file" name="image">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Image</span>
+					</div>
+
+          
+					<textarea style = "display:none" id="userImgText" cols="86" rows ="20" name="userImageText"></textarea>
+
 
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn">
+						<button class="login100-form-btn" id = "submit" type="submit">
 							Submit
 						</button>
 					</div>
@@ -108,7 +111,24 @@
 							<a href="login.php">Click Here to Signin</a>
 						</span>
 					</div>
+					<script> 
+          
+          			function encodeImageFileAsURL(element) {
+           				var file = element.files[0];
+						var reader = new FileReader();
+						var userImg = "";
+						reader.onloadend = function() {
+						userImg = reader.result;
+						}
+						reader.readAsDataURL(file);
 
+						document.getElementById('submit').onclick = function() {
+						document.getElementById('userImgText').innerHTML = userImg;
+						};
+            
+        			  }
+        
+    </script>
 					
 				</form>
 

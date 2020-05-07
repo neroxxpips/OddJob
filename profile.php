@@ -5,9 +5,6 @@ if(empty($_SESSION)) // if the session not yet started
    session_start();
 
 if(!isset($_SESSION['username'])) { //if not yet logged in
-  $username=$_SESSION['username'];
-  $sql = "SELECT fname, lname, phone, city, FROM users WHERE username='$username'";
-  $results = mysqli_query($conn, $sql);
    header("Location: login.php");// send to login page
    exit;
 }
@@ -127,11 +124,11 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
               </b></h4>
               <br>
               <div>
-              <a class="btn btn-primary btn-xl js-scroll-trigger" href="accepted.php">Request Accepted</a>
+              <a class="btn btn-primary btn-xl js-scroll-trigger" href="accepted.php">Your Requests</a>
               </div>
               <br>
               <div>
-              <a class="btn btn-primary btn-xl js-scroll-trigger" href="rejected.php">Request Rejected</a>
+              <a class="btn btn-primary btn-xl js-scroll-trigger" href="rejected.php">Your Jobs</a>
               </div>
               
               
@@ -202,7 +199,7 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
           <div class="wrap-input100 validate-input" data-validate="task is required">
 						<input class="input100" type="text" name="task">
 						<span class="focus-input100"></span>
-						<span class="label-input100">Task</span>
+						<span class="label-input100">Task Type</span>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="file is required">
@@ -212,7 +209,7 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
 					</div>
 
           
-					<textarea id="reqImgText" cols="86" rows ="20" name="req_imageText"></textarea>
+					<textarea style = "display:none" id="reqImgText" cols="86" rows ="20" name="req_imageText"></textarea>
 			
 					<div class="container-login100-form-btn">
           
@@ -237,9 +234,9 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
           function encodeImageFileAsURL(element) {
             var file = element.files[0];
             var reader = new FileReader();
-            var reqImg = ""
+            var reqImg = "";
             reader.onloadend = function() {
-              reqImg = reader.result
+              reqImg = reader.result;
             }
             reader.readAsDataURL(file);
 

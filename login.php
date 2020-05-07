@@ -18,7 +18,7 @@
 	   } else{
 		
 	  
-	    // $password = md5($password);
+	    $password = md5($password);
 	    $sql = "SELECT * FROM users WHERE username='$username' AND password='$password'";
 	    $results = mysqli_query($db, $sql);
 	}
@@ -26,7 +26,7 @@
 	      $_SESSION['username'] = $username;
 	      $_SESSION['success'] = "You are now logged in";
 
-	       header('location: userdata.php');
+	       header('location: homepage.php');
 	    }else {
 	      echo "Wrong credentials";
 	    }
@@ -65,7 +65,7 @@
 <!--===============================================================================================-->
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
-<body style="background-color:grey;">
+<body style="background-color: #666666;">
 	
 	<div class="limiter">
 		<div class="container-login100">
@@ -116,7 +116,7 @@
 					<div class="text-center p-t-46 p-b-20">
 						<span class="txt2">
 							Not registered? <a href="registration.php">Click Here to Sign-up</a>
-							
+						</span>
 					</div>
 
 					
