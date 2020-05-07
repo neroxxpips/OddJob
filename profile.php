@@ -66,7 +66,7 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
             <a class="nav-link" href="#">Profile</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Services</a>
+            <a class="nav-link" href="homepage.php">Available Task</a>
           </li>
           <li class="nav-item">
           <a class="btn btn-primary btn-xl" href="logout.php" style="height: 5px;">Logout</a>
@@ -89,7 +89,7 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
         <img src="img/avatar-1.png" id="profimg" class="rounded" alt="..." style="width:200px;height:200px;border-radius:50%;">
         </div>
 
-        <div style="height: 400px;width:300px;border:2px black solid;color:blue;padding-left:4px;background-color:black;margin-top:10px;">
+        <div style="height: 450px;width:300px;border:2px black solid;color:blue;padding-left:4px;background-color:black;margin-top:10px;">
               <br>
               <h4>Username: <span style=color:green;><?php echo $_SESSION['username'];?></span></h4>
               <h4><b>First name: <span style=color:green;>
@@ -125,6 +125,17 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
 
               ?></span>
               </b></h4>
+              <br>
+              <div>
+              <a class="btn btn-primary btn-xl js-scroll-trigger" href="accepted.php">Request Accepted</a>
+              </div>
+              <br>
+              <div>
+              <a class="btn btn-primary btn-xl js-scroll-trigger" href="rejected.php">Request Rejected</a>
+              </div>
+              
+              
+              
         </div>
 
       </div>
@@ -202,9 +213,26 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
 
           
 					<textarea id="reqImgText" cols="86" rows ="20" name="req_imageText"></textarea>
-				
+			
+					<div class="container-login100-form-btn">
+          
+						<button class="login100-form-btn" id = "submit" type="submit" name="login">
+							Add Post
+						</button>
+					</div>
+					
+					
 
-          <script> 
+					
+				</form>
+
+       
+
+          
+  </div>
+  <!-- /.container -->
+
+  <script> 
           
           function encodeImageFileAsURL(element) {
             var file = element.files[0];
@@ -222,28 +250,6 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
           }
         
         </script>
-					
-							
-			
-
-					<div class="container-login100-form-btn">
-						<button class="login100-form-btn" id = "submit" type="submit" name="login">
-							Add Post
-						</button>
-					</div>
-					
-					
-
-					
-				</form>
-
-       
-
-          
-  </div>
-  <!-- /.container -->
-
-  
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

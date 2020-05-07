@@ -63,7 +63,7 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
             </a>
           </li> -->
           <li class="nav-item">
-            <a class="nav-link" href="profile.php">Profile</a>
+            <a class="nav-link" href="#">Profile</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="homepage.php">Available Task</a>
@@ -89,7 +89,7 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
         <img src="img/avatar-1.png" id="profimg" class="rounded" alt="..." style="width:200px;height:200px;border-radius:50%;">
         </div>
 
-        <div style="height: 400px;width:300px;border:2px black solid;color:blue;padding-left:4px;background-color:black;margin-top:10px;">
+        <div style="height: 450px;width:300px;border:2px black solid;color:blue;padding-left:4px;background-color:black;margin-top:10px;">
               <br>
               <h4>Username: <span style=color:green;><?php echo $_SESSION['username'];?></span></h4>
               <h4><b>First name: <span style=color:green;>
@@ -125,51 +125,30 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
 
               ?></span>
               </b></h4>
+              <br>
+              <div>
+              <a class="btn btn-primary btn-xl js-scroll-trigger" href="accepted.php">Request Accepted</a>
+              </div>
+              <br>
+              <div>
+              <a class="btn btn-primary btn-xl js-scroll-trigger" href="rejected.php">Request Rejected</a>
+              </div>
+              
+              
+              
         </div>
 
       </div>
       <!-- /.col-lg-3 -->
 
-      <div class="col-lg-9" style="color:white;">
+      <div class="col-lg-9" >
 	
-				<form class="login100-form validate-form" action="job-post.php" method="post">
+				<form class="login100-form validate-form" action="job-post.php" method="post" style="height:600px">
 				
 					<span class="login100-form-title p-b-43">
-						Task Details
+						Request Rejected
 					</span>
-					<br>
-					
-					<div style="height:300px; width:450px;border:6px solid black;">
-						
-					</div>
-					
-					
-					<div style="margin-top:10px;">
-                        <h4>Task Type: <span></span></h4>
-                        <br>
-                        <h4>Description: <span></span></h4>
-                        <br>
-                        <h4>Location: <span></span></h4>
-                        <br>
-                        <h4>Price: <span></span></h4>
-                        <br>
-                        <h4>Phone Number: <span></span></h4>
-                        <br>
-                        <h4>Tip: <span></span></h4>
-
-						
-					</div>
-                    <br>
-                    <br>
-                    <a class="btn btn-primary btn-xl js-scroll-trigger" href="login.php">Accept Task</a>
-                    <a class="btn btn-primary btn-xl js-scroll-trigger" href="homepage.php">Reject Task</a>
-
                     
-          
-
-          
-
-					
 					
 
 					
@@ -181,7 +160,6 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
   </div>
   <!-- /.container -->
 
-  
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
