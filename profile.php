@@ -188,26 +188,46 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
 						<span class="label-input100">Zipcode</span>
 					</div>
 
-          <div class="wrap-input100 validate-input" data-validate="taskis required">
+          <div class="wrap-input100 validate-input" data-validate="task is required">
 						<input class="input100" type="text" name="task">
 						<span class="focus-input100"></span>
 						<span class="label-input100">Task</span>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="file is required">
-						<input class="input100" type="file" name="image">
+						<input class="input100" onchange="encodeImageFileAsURL(this)" type="file" name="image">
 						<span class="focus-input100"></span>
 						<span class="label-input100">Image</span>
 					</div>
 
-        
+          
+					<textarea id="reqImgText" cols="86" rows ="20" name="req_imageText"></textarea>
+				
 
-						<div>
+          <script> 
+          
+          function encodeImageFileAsURL(element) {
+            var file = element.files[0];
+            var reader = new FileReader();
+            var reqImg = ""
+            reader.onloadend = function() {
+              reqImg = reader.result
+            }
+            reader.readAsDataURL(file);
+
+            document.getElementById('submit').onclick = function() {
+            document.getElementById('reqImgText').innerHTML = reqImg;
+            }
+            
+          }
+        
+        </script>
+					
 							
 			
 
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn" type="submit" name="login">
+						<button class="login100-form-btn" id = "submit" type="submit" name="login">
 							Add Post
 						</button>
 					</div>

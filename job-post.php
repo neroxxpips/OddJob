@@ -18,7 +18,7 @@ $state = $_POST['state'];
 $city = $_POST['city'];
 $zip = $_POST['zip'];
 $task = $_POST['task'];
-$image = $_POST['image'];
+$image = $_POST['req_imageText'];;
 $userid = $_SESSION['username'];
 
 ini_set("allow_url_fopen", 1);
