@@ -139,24 +139,96 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
 					</span>
 					<br>
 					
-					<div style="height:300px; width:450px;border:6px solid black;">
-						
-					</div>
+				
 					
 					
-					<div style="margin-top:10px;">
-                        <h4>Task Type: <span></span></h4>
-                        <br>
-                        <h4>Description: <span></span></h4>
-                        <br>
-                        <h4>Location: <span></span></h4>
-                        <br>
-                        <h4>Price: <span></span></h4>
-                        <br>
-                        <h4>Phone Number: <span></span></h4>
-                        <br>
-                        <h4>Tip: <span></span></h4>
+          <div style="margin-top:10px;">
+          <?php
+          $reqID = $_POST['req'];
+          $url = 'http://localhost:8080/availablerequest?requestID=' . $reqID;
+          $obj = json_decode(file_get_contents($url), true); 
 
+          $url2 = 'http://localhost:8080/userprofile?username=' . $_SESSION['username'];
+          $obj2 = json_decode(file_get_contents($url2), true);
+          
+          ?>
+  
+            
+						<img src="img/avatar-1.png" id="reqimg" class="rounded" alt="..." style="width:200px;height:200px;border-radius:50%;">
+                        <?php
+                          $img_b64 = $obj['image'];
+
+                          echo "<script>var image = document.getElementById(\"reqimg\");
+                          image.src = '" .  $img_b64 . "';
+                          image.width=\"400px\";
+                          image.height=\"300px\";
+                          </script>";
+                         
+                        ?>
+           
+                      
+
+                        <h4>Title: <span>
+                          <?php
+                            echo $obj['title'];
+                          ?>
+                        </span></h4>
+                        <br>
+                        <h4>Description: <span style=color:green;>
+                          <?php
+                            echo $obj['post'];
+                          ?>
+                        </span></h4>
+                        <br>
+                        <h4>Task: <span style=color:green;>
+                          <?php
+                            echo $obj['task'];
+                          ?>
+                        </span></h4>
+                        <br>
+                        <h4>Street Number: <span style=color:green;>
+                          <?php
+                            echo $obj['number'];
+                          ?>
+                        </span></h4>
+                        <br>
+                        <h4>Street: <span style=color:green;>
+                          <?php
+                            echo $obj['address'];
+                          ?>
+                        </span></h4>
+                        <br>
+                        <h4>City: <span style=color:green;>
+                          <?php
+                            echo $obj['city'];
+                          ?>
+                        </span></h4>
+                        <br>
+                        <h4>State: <span style=color:green;>
+                          <?php
+                            echo $obj['state'];
+                          ?>
+                        </span></h4>
+                        <br>
+                        <h4>Zipcode: <span style=color:green;>
+                          <?php
+                            echo $obj['zip'];
+                          ?>
+                        </span></h4>
+                        <br>
+                        <h4>Price: <span style=color:green;>
+                          <?php
+                            echo $obj['price'];
+                          ?>
+                        </span></h4>
+                        <br>
+                        <h4>Phone Number: <span style=color:green;>
+                          <?php
+                            echo $obj2['phonenum'];
+                          ?>
+                        </span></h4>
+                        <br>
+                        
 						
 					</div>
                     <br>

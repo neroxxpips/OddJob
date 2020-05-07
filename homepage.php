@@ -125,10 +125,33 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
           
 
 <?php
+
+if(!isset($_SESSION["street"])){
+  $street = $_POST["street"];
+  $number = $_POST["number"];
+  $state = $_POST["state"];
+  $city = $_POST["city"];
+  
+  $_SESSION["street"] = $street;
+  $_SESSION["number"] = $number;
+  $_SESSION["state"] = $state;
+  $_SESSION["city"] = $city;
+}
+
+$urldata = array(
+  'street' => $_SESSION["street"],
+  'number' => $_SESSION["number"],
+  'state' => $_SESSION["state"],
+  'city' => $_SESSION["city"],
+  'userid' => $_SESSION["username"]
+);
+
+$urlquery = http_build_query($urldata);
+
 ini_set("allow_url_fopen", 1);
 
 // Insert api call here
-$url = 'http://localhost:8080/allavailablerequests?street=16th%20St&number=3466&city=San%20Francisco&state=California&userid=' . $_SESSION["username"];
+$url = 'http://localhost:8080/allavailablerequests?' . $urlquery;
 $obj = json_decode(file_get_contents($url), true);
 
 ?>
@@ -140,6 +163,7 @@ for ($i = 0; $i < count($obj['requestArray']); $i++) {
               <a>
               
               <?php
+              $rid = $obj['requestArray'][$i]['rid'];
               $req_img = $obj['requestArray'][$i]['image'];
               echo "<img class=\"card-img-top\" src=' ". $req_img . "' alt=\"\">";
               ?>
@@ -152,7 +176,14 @@ for ($i = 0; $i < count($obj['requestArray']); $i++) {
                 <p style="color:green;" class="card-text" ><?php echo $obj['requestArray'][$i]['title']; ?></p>
               </div>
               <div class="card-footer">
-                <small class="text-muted"><a class="btn btn-primary btn-xl js-scroll-trigger" href="details.php">view</a>
+                <small class="text-muted">
+                <form action="details.php" method="post">
+                <textarea style = "display:none" cols="86" rows ="20" name="req"><?php echo   $rid ?></textarea>
+                    <button class="btn btn-primary btn-xl js-scroll-trigger" id = "submit" type="submit" name="view">
+							      View
+                    </button>
+                    
+                </form> 
                 </small>
               </div>
             </div>
