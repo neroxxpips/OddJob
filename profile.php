@@ -86,17 +86,45 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
         <a class="navbar-brand js-scroll-trigger" href="#page-top"  style="font-family: 'Luckiest Guy';font-size:50px;"
 >OddJob</a>
         <div class="list-group" style="width:200px;height:200px;border-radius:50%;">
-        <img src="img/avatar-1.png" class="rounded" alt="..." style="width:200px;height:200px;border-radius:50%;">
+        <img src="img/avatar-1.png" id="profimg" class="rounded" alt="..." style="width:200px;height:200px;border-radius:50%;">
         </div>
 
         <div style="height: 400px;width:300px;border:2px black solid;color:blue;padding-left:4px;background-color:black;margin-top:10px;">
               <br>
               <h4>Username: <span style=color:green;><?php echo $_SESSION['username'];?></span></h4>
-              <h4><b>First name: <?php echo $_results['fname'];?></b></h4>
-              <h4><b>Last name:</b></h4>
-              <h4><b>City:</b></h4>
-              <h4><b>State:</b></h4>
-              <h4><b>Zipcode:</b></h4>
+              <h4><b>First name: <span style=color:green;>
+              <?php 
+              
+              $url = 'http://localhost:8080/userprofile?username=' . $_SESSION['username'];
+              $obj = json_decode(file_get_contents($url), true);
+              echo $obj['fname'];
+              
+              ?></span></b></h4>
+
+              <?php
+                $img_b64 = $obj['image'];
+
+                echo "<script>var image = document.getElementById(\"profimg\");
+                image.src = '" .  $img_b64 . "';</script>";
+              ?>
+              <h4><b>Last name: <span style=color:green;>
+              <?php
+              echo $obj['lname'];
+              ?></span>
+              </b></h4>
+              <h4><b>City: <span style=color:green;>
+              <?php
+              
+              echo $obj['city']; 
+
+              ?></span></b></h4>
+              <h4><b>State: <span style=color:green;>
+              <?php
+
+              echo $obj['state'];
+
+              ?></span>
+              </b></h4>
         </div>
 
       </div>
