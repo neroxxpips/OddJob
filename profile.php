@@ -196,11 +196,15 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
 						<span class="label-input100">Zipcode</span>
 					</div>
 
+          
           <div class="wrap-input100 validate-input" data-validate="task is required">
-						<input class="input100" type="text" name="task">
-						<span class="focus-input100"></span>
-						<span class="label-input100">Task Type</span>
-					</div>
+            <select id="task" name="task">
+              <option value="choice">Choose a task Category</option>
+              <option value="student">Student</option>
+              <option value="professional">Professional</option>
+              <option value="casual">Casual</option>
+            </select>
+            </div>
 
 					<div class="wrap-input100 validate-input" data-validate="file is required">
 						<input class="input100" onchange="encodeImageFileAsURL(this)" type="file" name="image">
