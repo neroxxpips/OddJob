@@ -1,5 +1,6 @@
 <?php
 include 'config.php'; //connect the connection page
+error_reporting(0);
 
 if(empty($_SESSION)) // if the session not yet started
    session_start();
@@ -63,7 +64,7 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
             </a>
           </li> -->
           <li class="nav-item">
-            <a class="nav-link" href="#">Profile</a>
+            <a class="nav-link" href="profile.php">Make Requests</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="homepage.php">Available Task</a>
@@ -89,7 +90,7 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
         <img src="img/avatar-1.png" id="profimg" class="rounded" alt="..." style="width:200px;height:200px;border-radius:50%;">
         </div>
 
-        <div style="height: 450px;width:300px;border:2px black solid;color:blue;padding-left:4px;background-color:black;margin-top:10px;">
+        <div style="height: 600px;width:300px;border:2px black solid;color:blue;padding-left:4px;background-color:black;margin-top:10px">
               <br>
               <h4>Username: <span style=color:green;><?php echo $_SESSION['username'];?></span></h4>
               <h4><b>First name: <span style=color:green;>
@@ -131,7 +132,16 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
               </div>
               <br>
               <div>
-              <a class="btn btn-primary btn-xl js-scroll-trigger" href="rejected.php">Your Jobs</a>
+              <a class="btn btn-primary btn-xl js-scroll-trigger" href="yourjobs.php">Your Jobs</a>
+              </div>
+              <br>
+              <div>
+              <a class="btn btn-primary btn-xl js-scroll-trigger" href="archivedjobsreq.php">Past Jobs Requested</a>
+              </div>
+              <br>
+
+              <div>
+              <a class="btn btn-primary btn-xl js-scroll-trigger" href="archivedjobscomp.php">Past Jobs Completed</a>
               </div>
               
               
@@ -143,23 +153,113 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
 
       <div class="col-lg-9" >
 	
-				<form class="login100-form validate-form" action="job-post.php" method="post" style="height:600px">
-				
+			
 					<span class="login100-form-title p-b-43">
-						Request Accepted
+						Requests Accepted
 					</span>
                     <br>
+
+<?php
+ini_set("allow_url_fopen", 1);
+
+$username = $_SESSION["username"];
+// Insert api call here
+$url = 'http://localhost:8080/allrequestsrequestedaccepted?user=' . $username;
+$obj = json_decode(file_get_contents($url), true);
+
+?>
+<?php
+for ($i = 0; $i < count($obj['requestArray']); $i++) {
+?>  
+<div class="row">
+<div class="col-lg-4 col-md-6 mb-4">
+   <div class="card h-100">
+              <a>
+              
+              <?php
+              $rid = $obj['requestArray'][$i]['rid'];
+              $req_img = $obj['requestArray'][$i]['image'];
+              echo "<img class=\"card-img-top\" src=' ". $req_img . "' alt=\"\">";
+              ?>
+                </a>
+              <div class="card-body">
+                <h4 class="card-title">
+                  <a href="#"><?php echo $obj['requestArray'][$i]['title']; ?></a>
+                </h4>
+                <h5>$<?php echo $obj['requestArray'][$i]['price']; ?></h5>
+                <p style="color:green;" class="card-text" ><?php echo $obj['requestArray'][$i]['title']; ?></p>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">
+                <form action="details3.php" method="post">
+                <textarea style = "display:none" cols="86" rows ="20" name="req"><?php echo   $rid ?></textarea>
+                    <button class="btn btn-primary btn-xl js-scroll-trigger" id = "submit" type="submit" name="view">
+							      View
+                    </button>
                     
-					<div style="height:200px;width:200px;border:4px solid black;">
-          
-          
+                </form> 
+                </small>
+              </div>
+            </div>
+            </div>
+            </div>
+<?php  
+};  
+?>
 
-                <a class="btn btn-primary btn-xl js-scroll-trigger" href="payment.php">Make Payment</a>
-             
-          </div>
 
-					
-				</form>
+<span class="login100-form-title p-b-43" color=black;>
+						Requests Not Accepted
+</span>
+<br>
+<?php
+ini_set("allow_url_fopen", 1);
+
+$username = $_SESSION["username"];
+// Insert api call here
+$url = 'http://localhost:8080/allrequestsrequestednoaccepted?user=' . $username;
+$obj = json_decode(file_get_contents($url), true);
+
+?>
+<div class="row" style="margin-left: 20px"> 
+<?php
+for ($i = 0; $i < count($obj['requestArray']); $i++) {
+?> 
+<div class="col-lg-4 col-md-6 mb-4">
+   <div class="card h-100">
+              <a>
+              
+              <?php
+              $rid = $obj['requestArray'][$i]['rid'];
+              $req_img = $obj['requestArray'][$i]['image'];
+              echo "<img class=\"card-img-top\" src=' ". $req_img . "' alt=\"\">";
+              ?>
+                </a>
+              <div class="card-body">
+                <h4 class="card-title">
+                  <a href="#"><?php echo $obj['requestArray'][$i]['title']; ?></a>
+                </h4>
+                <h5>$<?php echo $obj['requestArray'][$i]['price']; ?></h5>
+                <p style="color:green;" class="card-text" ><?php echo $obj['requestArray'][$i]['title']; ?></p>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">
+                <form action="details2.php" method="post">
+                <textarea style = "display:none" cols="86" rows ="20" name="req"><?php echo   $rid ?></textarea>
+                    <button class="btn btn-primary btn-xl js-scroll-trigger" id = "submit" type="submit" name="view">
+							      View
+                    </button>
+                    
+                </form> 
+                </small>
+              </div>
+            </div>
+            </div>
+<?php  
+};  
+?>
+</div>
+		
 
        
 

@@ -143,7 +143,7 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
 
       <div class="col-lg-9">
 	
-				<form class="login100-form validate-form" action="job-post.php" method="post">
+				<form class="login100-form validate-form" action="paymenthandle.php" method="post">
 				
 					<span class="login100-form-title p-b-43">
 						 Payment Information
@@ -155,21 +155,36 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
 						<span class="focus-input100"></span>
 						<span class="label-input100">Card Number</span>
 					</div>
-					
-					
-					<div class="wrap-input100 validate-input" data-validate="expiration date is required">
-						<input class="input100" type="number" name="expire">
+          
+          <div class="wrap-input100 validate-input" data-validate="type required">
+						<input class="input100" type="text" name="type">
 						<span class="focus-input100"></span>
-						<span class="label-input100">Expiration Date</span>
+						<span class="label-input100">Card Type</span>
+					</div>
+					
+					<div class="wrap-input100 validate-input" data-validate="expiration month is required">
+						<input class="input100" type="number" name="expmonth">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Expiration Month</span>
 					</div>
 
-                    <div class="wrap-input100 validate-input" data-validate="cvvis required">
-						<input class="input100" type="text" name="cvv">
+          <div class="wrap-input100 validate-input" data-validate="expiration year is required">
+						<input class="input100" type="number" name="expyear">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Expiration Year</span>
+          </div>
+          
+          <div class="wrap-input100 validate-input" data-validate="cvv is required">
+						<input class="input100" type="number" name="cvv">
 						<span class="focus-input100"></span>
 						<span class="label-input100">CVV</span>
 					</div>
 
-         
+          <?php
+          $reqID = $_POST['req'];
+          ?>
+
+          <textarea style = "display:none" cols="86" rows ="20" name="req"><?php echo $reqID?></textarea>
           
 						<button class="login100-form-btn" id = "submit" type="submit" name="login">
 							Send Payment

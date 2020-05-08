@@ -15,7 +15,6 @@ import (
 func AllRequestGet(db *sql.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
 
-		price := c.DefaultQuery("price", "-1")
 		task := c.DefaultQuery("task", "-1")
 		street := c.DefaultQuery("street", "-1")
 		number, err := strconv.Atoi(c.DefaultQuery("number", "-1"))
@@ -83,18 +82,10 @@ func AllRequestGet(db *sql.DB) gin.HandlerFunc {
 			queryPart2 += ")"
 
 			query := ""
-			if price == "-1" {
-				if task == "-1" {
-					query = "SELECT request_id,title,price,state,city,task,reqimg,poster_id FROM requests WHERE poster_id != '" + userView + "' AND accept_id IS NULL "
-				} else {
-					query = "SELECT request_id,title,price,state,city,task,reqimg,poster_id FROM requests WHERE poster_id != '" + userView + "' AND accept_id IS NULL AND task = " + task + " "
-				}
+			if task == "-1" {
+				query = "SELECT request_id,title,price,state,city,task,reqimg,poster_id FROM requests WHERE poster_id != '" + userView + "' AND accept_id IS NULL "
 			} else {
-				if task == "-1" {
-					query = "SELECT request_id,title,price,state,city,task,reqimg,poster_id FROM requests WHERE poster_id != '" + userView + "' AND accept_id IS NULL AND price < " + price + " "
-				} else {
-					query = "SELECT request_id,title,price,state,city,task,reqimg,poster_id FROM requests WHERE poster_id != '" + userView + "' AND accept_id IS NULL AND price < " + price + " AND task = " + task + " "
-				}
+				query = "SELECT request_id,title,price,state,city,task,reqimg,poster_id FROM requests WHERE poster_id != '" + userView + "' AND accept_id IS NULL AND task = '" + task + "' "
 			}
 			fmt.Println(query)
 			totalQuery := query + queryPart2

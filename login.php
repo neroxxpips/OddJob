@@ -26,7 +26,7 @@
 	      $_SESSION['username'] = $username;
 	      $_SESSION['success'] = "You are now logged in";
 
-	       header('location: homepage.php');
+	       header('location: userdata.php');
 	    }else {
 	      echo "Wrong credentials";
 	    }
@@ -80,7 +80,7 @@
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
 						<input class="input100" type="text" name="username">
 						<span class="focus-input100"></span>
-						<span class="label-input100">Email</span>
+						<span class="label-input100">Username</span>
 					</div>
 					
 					
@@ -121,7 +121,6 @@
 
 					
 				</form>
-				<?php include('messages.php'); ?>
 
 				<div class="login100-more" style="background-image: url('images/painting.jpeg');">
 				</div>

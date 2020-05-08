@@ -54,4 +54,6 @@ $options = array (
     if ($result == FALSE) {
         var_dump($result);
     }
+
+    header("Location: profile.php");
 ?>

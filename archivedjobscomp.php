@@ -1,46 +1,38 @@
 <?php
 include 'config.php'; //connect the connection page
-
+error_reporting(0);
 if(empty($_SESSION)) // if the session not yet started
    session_start();
-
 if(!isset($_SESSION['username'])) { //if not yet logged in
+  $username=$_SESSION['username'];
+  $sql = "SELECT fname, lname, phone, city, FROM users WHERE username='$username'";
+  $results = mysqli_query($conn, $sql);
    header("Location: login.php");// send to login page
    exit;
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-
   <title>OddJob - Homepage</title>
-
   <!-- Bootstrap core CSS -->
   <link href="vendor1/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy&display=swap" rel="stylesheet">
-
   <!-- Custom styles for this template -->
   <link rel="stylesheet" type="text/css" href="css/main.css">
   <link href="css/homepage.css" rel="stylesheet">
   <link href="css/creative.min.css" rel="stylesheet">
-
-
 </head>
-
 <body >
-
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
     <a class="navbar-brand js-scroll-trigger" href="#page-top"  style="font-family: 'Luckiest Guy';font-size:20px;"
 >OddJob</a>
-
 <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
             <a class="nav-link" href="#">Welcome, <?php echo $_SESSION['username'];?>
@@ -60,47 +52,38 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
             </a>
           </li> -->
           <li class="nav-item">
-            <a class="nav-link" href="#">Make Requests</a>
+            <a class="nav-link" href="profile.php">Make Requests</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="homepage.php">Available Task</a>
           </li>
           <li class="nav-item">
-          <a class="btn btn-primary btn-xl" href="logout.php" style=>Logout</a>
+          <a class="btn btn-primary btn-xl" href="logout.php" style="height: 5px;">Logout</a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
-
   <!-- Page Content -->
   <div class="container">
-
     <div class="row">
-
       <div class="col-lg-3">
-
         <a class="navbar-brand js-scroll-trigger" href="#page-top"  style="font-family: 'Luckiest Guy';font-size:50px;"
 >OddJob</a>
         <div class="list-group" style="width:200px;height:200px;border-radius:50%;">
         <img src="img/avatar-1.png" id="profimg" class="rounded" alt="..." style="width:200px;height:200px;border-radius:50%;">
         </div>
-
         <div style="height: 600px;width:300px;border:2px black solid;color:blue;padding-left:4px;background-color:black;margin-top:10px;">
               <br>
               <h4>Username: <span style=color:green;><?php echo $_SESSION['username'];?></span></h4>
               <h4><b>First name: <span style=color:green;>
               <?php 
-              
               $url = 'http://localhost:8080/userprofile?username=' . $_SESSION['username'];
               $obj = json_decode(file_get_contents($url), true);
               echo $obj['fname'];
-              
               ?></span></b></h4>
-
               <?php
                 $img_b64 = $obj['image'];
-
                 echo "<script>var image = document.getElementById(\"profimg\");
                 image.src = '" .  $img_b64 . "';</script>";
               ?>
@@ -111,15 +94,11 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
               </b></h4>
               <h4><b>City: <span style=color:green;>
               <?php
-              
               echo $obj['city']; 
-
               ?></span></b></h4>
               <h4><b>State: <span style=color:green;>
               <?php
-
               echo $obj['state'];
-
               ?></span>
               </b></h4>
               <br>
@@ -138,129 +117,61 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
               <div>
               <a class="btn btn-primary btn-xl js-scroll-trigger" href="archivedjobscomp.php">Past Jobs Completed</a>
               </div>
-              
-              
-              
         </div>
-
       </div>
       <!-- /.col-lg-3 -->
-
-      <div class="col-lg-9">
-	
-				<form class="login100-form validate-form" action="job-post.php" method="post">
-				
-					<span class="login100-form-title p-b-43">
-						Post New Task
-					</span>
-					<br>
-					
-					<div class="wrap-input100 validate-input" data-validate = "title is required">
-						<input class="input100" type="text" name="title">
-						<span class="focus-input100"></span>
-						<span class="label-input100">Title</span>
-					</div>
-					
-					
-					<div class="wrap-input100 validate-input" data-validate="post is required">
-						<input class="input100" type="text" name="post">
-						<span class="focus-input100"></span>
-						<span class="label-input100">Post</span>
-					</div>
-
-                    <div class="wrap-input100 validate-input" data-validate="price is required">
-						<input class="input100" type="text" name="price">
-						<span class="focus-input100"></span>
-						<span class="label-input100">Price</span>
-					</div>
-
-          <div class="wrap-input100 validate-input" data-validate="street number is required">
-						<input class="input100" type="text" name="number">
-						<span class="focus-input100"></span>
-						<span class="label-input100">Street Number</span>
-					</div>
-
-          <div class="wrap-input100 validate-input" data-validate="street name is required">
-						<input class="input100" type="text" name="street">
-						<span class="focus-input100"></span>
-						<span class="label-input100">Street Name</span>
-					</div>
-
-          <div class="wrap-input100 validate-input" data-validate="state is required">
-						<input class="input100" type="text" name="state">
-						<span class="focus-input100"></span>
-						<span class="label-input100">State</span>
-					</div>
-
-          <div class="wrap-input100 validate-input" data-validate="city is required">
-						<input class="input100" type="text" name="city">
-						<span class="focus-input100"></span>
-						<span class="label-input100">City</span>
-					</div>
-
-          <div class="wrap-input100 validate-input" data-validate="zipcode is required">
-						<input class="input100" type="number" name="zip">
-						<span class="focus-input100"></span>
-						<span class="label-input100">Zipcode</span>
-					</div>
-
-          <div class="wrap-input100 validate-input" data-validate="task is required">
-            <select id="task" name="task">
-            <option value="student">Student</option>
-            <option value="professional">Professional</option>
-            <option value="casual">Casual</option>
-            </select> 
-          </div>
-
-					<div class="wrap-input100 validate-input" data-validate="file is required">
-						<input class="input100" onchange="encodeImageFileAsURL(this)" type="file" name="image">
-						<span class="focus-input100"></span>
-						<span class="label-input100">Image</span>
-					</div>
-
-          
-					<textarea style = "display:none" id="reqImgText" cols="86" rows ="20" name="req_imageText"></textarea>
-			
-					<div class="container-login100-form-btn">
-          
-						<button class="login100-form-btn" id = "submit" type="submit" name="login">
-							Add Post
-						</button>
-					</div>
-					
-					
-
-					
-				</form>
-
-       
-
-          
+      <div class="col-lg-9" >
+                    <span class="login100-form-title p-b-43">
+                        Your Past Jobs Completed
+                    </span>
+                    <br>
+<?php
+ini_set("allow_url_fopen", 1);
+$username = $_SESSION["username"];
+// Insert api call here
+$url = 'http://localhost:8080/allarchiveddone?user=' . $username;
+$obj = json_decode(file_get_contents($url), true);
+?>
+<div class="row" style="margin-left: 20px;">
+<?php
+for ($i = 0; $i < count($obj['requestArray']); $i++) {
+?>  
+<div class="col-lg-4 col-md-6 mb-4">
+   <div class="card h-100">
+              <a>
+              <?php
+              $rid = $obj['requestArray'][$i]['rid'];
+              $req_img = $obj['requestArray'][$i]['image'];
+              echo "<img class=\"card-img-top\" src=' ". $req_img . "' alt=\"\">";
+              ?>
+                </a>
+              <div class="card-body">
+                <h4 class="card-title">
+                  <a href="#"><?php echo $obj['requestArray'][$i]['title']; ?></a>
+                </h4>
+                <h5>$<?php echo $obj['requestArray'][$i]['price']; ?></h5>
+                <p style="color:green;" class="card-text" ><?php echo $obj['requestArray'][$i]['title']; ?></p>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">
+                <form action="details4.php" method="post">
+                <textarea style = "display:none" cols="86" rows ="20" name="req"><?php echo   $rid ?></textarea>
+                    <button class="btn btn-primary btn-xl js-scroll-trigger" id = "submit" type="submit" name="view">
+                                  View
+                    </button>
+                </form> 
+                </small>
+              </div>
+            </div>
+            </div>
+<?php  
+};  
+?>
+</div>
   </div>
   <!-- /.container -->
-
-  <script> 
-          
-          function encodeImageFileAsURL(element) {
-            var file = element.files[0];
-            var reader = new FileReader();
-            var reqImg = "";
-            reader.onloadend = function() {
-              reqImg = reader.result;
-            }
-            reader.readAsDataURL(file);
-
-            document.getElementById('submit').onclick = function() {
-            document.getElementById('reqImgText').innerHTML = reqImg;
-            }
-            
-          }
-        
-        </script>
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
 </body>
-
 </html>

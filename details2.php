@@ -238,9 +238,7 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
 
                     <textarea style = "display:none" cols="86" rows ="20" name="req"><?php echo $reqID?></textarea>
 
-                    <button class="btn btn-primary btn-xl js-scroll-trigger" id = "submit" type="submit" name="accept">
-							      Accept
-                    </button>
+                  
 
                     </form> 
 

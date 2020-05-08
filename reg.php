@@ -55,5 +55,6 @@
             if ($result == FALSE) {
                 var_dump($result);
             }
+        header("Location: login.php");
     }
 ?>

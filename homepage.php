@@ -1,12 +1,19 @@
 <?php
 include 'config.php'; //connect the connection page
-
+error_reporting(0);
 if(empty($_SESSION)) // if the session not yet started
    session_start();
 
 if(!isset($_SESSION['username'])) { //if not yet logged in
    header("Location: login.php");// send to login page
    exit;
+}
+
+if (isset($_POST['task'])) {
+  $_SESSION['task'] = $_POST['task'];
+}
+else{
+  $_SESSION['task'] = 'casual';
 }
 ?>
 <!DOCTYPE html>
@@ -60,13 +67,13 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
             </a>
           </li> -->
           <li class="nav-item">
-            <a class="nav-link" href="profile.php">Profile</a>
+            <a class="nav-link" href="profile.php">Make Requests</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#"></a>
           </li>
           <li class="nav-item">
-          <a class="btn btn-primary btn-xl" href="logout.php" style="height: 5px;">Logout</a>
+          <a class="btn btn-primary btn-xl" href="logout.php">Logout</a>
           </li>
         </ul>
       </div>
@@ -83,10 +90,27 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
         <a class="navbar-brand js-scroll-trigger" href="#page-top"  style="font-family: 'Luckiest Guy';font-size:50px;"
 >OddJob</a>
         <div class="list-group">
-          <a href="#" class="list-group-item">Casual</a>
-          <a href="#" class="list-group-item">Student</a>
-          <a href="#" class="list-group-item">Professional</a>
+
+        <form action="homepage.php" method="post">
+                <textarea style = "display:none" cols="86" rows ="20" name="task">casual</textarea>
+                    <button class="btn btn-primary btn-xl js-scroll-trigger" id = "submit" type="submit" name="view" style="margin-bottom: 10px;">
+							      Casual
+                    </button>
+        </form> 
+        <form action="homepage.php" method="post">
+                <textarea style = "display:none" cols="86" rows ="20" name="task">student</textarea>
+                    <button class="btn btn-primary btn-xl js-scroll-trigger" id = "submit" type="submit" name="view" style="margin-bottom: 10px;">
+							      Student
+                    </button>   
+        </form>   
         </div>
+        <form action="homepage.php" method="post">
+                <textarea style = "display:none" cols="86" rows ="20" name="task">professional</textarea>
+                    <button class="btn btn-primary btn-xl js-scroll-trigger" id = "submit" type="submit" name="view" style="margin-bottom: 10px;">
+							      Professional
+                    </button>
+                    
+        </form> 
 
       </div>
       <!-- /.col-lg-3 -->
@@ -143,7 +167,8 @@ $urldata = array(
   'number' => $_SESSION["number"],
   'state' => $_SESSION["state"],
   'city' => $_SESSION["city"],
-  'userid' => $_SESSION["username"]
+  'userid' => $_SESSION["username"],
+  'task'  => $_SESSION['task']
 );
 
 $urlquery = http_build_query($urldata);

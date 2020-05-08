@@ -125,7 +125,7 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
 
       <div class="col-lg-9">
 	
-				<form class="login100-form validate-form" action="job-post.php" method="post">
+				<form class="login100-form validate-form" action="homepage.php" method="post">
 				
 					<span class="login100-form-title p-b-43">
 						Welcome, <h4><b> <span style=color:green;>
@@ -152,10 +152,16 @@ if(!isset($_SESSION['username'])) { //if not yet logged in
 						<span class="label-input100">Street Name</span>
 					</div>
 
-                    <div class="wrap-input100 validate-input" data-validate="state is required">
+          <div class="wrap-input100 validate-input" data-validate="state is required">
 						<input class="input100" type="text" name="state">
 						<span class="focus-input100"></span>
 						<span class="label-input100">State</span>
+          </div>
+          
+          <div class="wrap-input100 validate-input" data-validate="state is required">
+						<input class="input100" type="text" name="city">
+						<span class="focus-input100"></span>
+						<span class="label-input100">City</span>
 					</div>
 
           
