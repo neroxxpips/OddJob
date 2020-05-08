@@ -5,7 +5,7 @@ First, GO is required in order to run the server.
 Here's the link to GO: https://golang.org/dl/
 
 Next, open up your command prompt/terminal get to this directory:
-C:\Users\*NAME*\BackendCode\OddJob\httpd\
+C:\Users\\*NAME*\\BackendCode\OddJob\httpd\
 
 Now, run this command: go run main.go
 This will turn on the server, with the host being 'localhost' under port
